@@ -7,8 +7,8 @@ router
     .get('/', getAllRecipes)
     .get('/:id', getRecipeById)
     .post('/', createRecipe)
-    .post('/:id/ingredients', )
     .put('/:id', updateRecipe)
+    // .patch('/:id/ingredients', )
     .delete('/:id', deleteRecipe)
 
 
