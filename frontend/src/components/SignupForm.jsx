@@ -23,11 +23,16 @@ const SignupForm = () => {
         console.error("Signup error:", response.error);
         return;
       }
+
+      const token = response.token
+      // const userInfo = response.user
+      
+      localStorage.setItem('token', token)
+      // localStorage.setItem("user", user)
       console.log("Signup success:", response)
     } catch (error) {
       console.log('Signup failed', error)
     }
-
   }
   return (
     <div className="p-4">
@@ -70,7 +75,7 @@ const SignupForm = () => {
             name="email"
             className="border p-2 rounded-md focus:outline-none focus:ring-0"
             placeholder="Enter your email"
-          {...register("email")}
+            {...register("email")}
           />
         </div>
 

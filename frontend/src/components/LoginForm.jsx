@@ -1,12 +1,20 @@
+import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import useAuthStore from "../store/useAuthStore"
 
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const router = useRouter
+  const navigate = useNavigate()
+  const { login } = useAuthStore()
 
   const submitHandler = async (data) => {
     console.log(data)
 
     try {
+      setIsSubmitting(true)
       const result = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
@@ -17,15 +25,27 @@ const LoginForm = () => {
           password: data.password
         })
       })
+
+      const response = await result.json()
       if (!result.ok) {
-        console.error("Login error:", response.message);
+        console.error("Login error:", response.error);
         return;
       }
 
-      const response = await result.json()
+      // await new Promise(resolve => setTimeout(resolve, 3000));
       console.log(response)
+      const token = response.token
+      const userInfo = response.user
+
+      login(response.token)
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(userInfo))
+      navigate('/profile')
+
     } catch (error) {
       console.log('Login Failed', error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -45,6 +65,7 @@ const LoginForm = () => {
             className="border p-2 rounded-md focus:outline-none focus:ring-0"
             placeholder="Enter your email"
             required
+            {...register("email")}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -71,7 +92,7 @@ const LoginForm = () => {
             </span>
           )}
         </div>
-        <button className="bg-[#4C3814] text-white w-full my-3 py-2 rounded border-2 border-[#4C3814] hover:bg-white hover:text-[#4C3814] transition" type="submit">Log In</button>
+        <button disabled={isSubmitting} className="bg-[#4C3814] text-white w-full my-3 py-2 rounded border-2 border-[#4C3814] hover:bg-white hover:text-[#4C3814] transition" type="submit">Log In</button>
       </form>
     </div>
   )
