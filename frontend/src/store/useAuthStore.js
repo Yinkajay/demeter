@@ -36,12 +36,16 @@ const useAuthStore = create(
                     token,
                     isAuthenticated: true
                 })),
-            logout: () =>
+            logout: () => {
+                localStorage.removeItem('auth-storage')
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
                 set(() => ({
                     user: null,
                     token: null,
                     isAuthenticated: false
                 }))
+            }
 
         }),
         { name: 'auth-storage' }

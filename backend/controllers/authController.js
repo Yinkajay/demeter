@@ -35,7 +35,7 @@ const signup = async (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: '1h'
+                expiresIn: '6h'
             }
         )
 
@@ -75,7 +75,7 @@ const login = async (req, res) => {
         const token = jwt.sign(
             { id: userInfo.id },
             process.env.JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '6h' }
         )
 
         return res.status(200).json({ status: 'success', message: 'Login successful', user: { id: userInfo.id, username: userInfo.username, email: userInfo.email }, token })
@@ -108,7 +108,7 @@ const editProfileData = async (req, res) => {
 
     const fieldTochange = Object.keys(fieldUpdate)[0]
     const newValue = Object.values(fieldUpdate)[0]
-
+    console.log(newValue)
     const allowedFields = ['email', 'username', 'bio', 'profile_image_url']
 
     if (!allowedFields.includes(fieldTochange)) {

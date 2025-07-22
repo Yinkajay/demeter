@@ -3,3 +3,31 @@
 .font-quintessential {
   font-family: 'Quintessential', serif;
 }
+
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .custom-file-label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 8px 0;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .custom-file-label:hover {
+    background-color: #fff;
+    border: 2px solid #333;
+    color: #333;
+  }
+
+  input[type="file"] {
+    display: none;
+  }

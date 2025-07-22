@@ -7,6 +7,7 @@ import Auth from './pages/Auth'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
 import Recipes from './pages/Recipes'
+import CreateRecipe from './pages/CreateRecipe'
 
 const routes = createBrowserRouter([
   {
@@ -18,6 +19,13 @@ const routes = createBrowserRouter([
         path: '/profile', element: (
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/create', element: (
+          <ProtectedRoute>
+            <CreateRecipe />
           </ProtectedRoute>
         )
       }

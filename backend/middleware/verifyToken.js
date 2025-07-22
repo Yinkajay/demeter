@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const verifyToken = (req, res, next) => {
-    console.log(req)
+    // console.log(req)
     const header = req.headers['authorization']
 
     if (!header || !header.startsWith('Bearer')) {

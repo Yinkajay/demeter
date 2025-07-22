@@ -16,14 +16,13 @@ const Recipes = () => {
         }
     }
 
-
     useEffect(() => {
         getAllRecipes()
     }, [])
 
     return (
         <>
-            <section className=' p-5 flex gap-4 flex-wrap'>
+            <section className='p-5 flex gap-1 flex-wrap'>
                 {recipes && (
                     (recipes.map((recipe, index) => (
                         <RecipeCard key={recipe.id} recipe={recipe} />
