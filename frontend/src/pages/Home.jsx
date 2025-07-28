@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
             <section className=' p-5 flex gap-4 flex-wrap'>
-                <p>Home</p>
+                <img src="" alt="" />
             </section>
         </>
     )

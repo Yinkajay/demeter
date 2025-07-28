@@ -2,6 +2,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react"
 import { uploadToCloudinary } from "../lib/cloudinary"
+import { toast } from "sonner"
 
 const CreateRecipe = () => {
   const { control, register, handleSubmit } = useForm({
@@ -121,11 +122,14 @@ const CreateRecipe = () => {
         },
         body: JSON.stringify(recipeData)
       })
-
+      toast.success('Recipe successfully created!', {
+        position: 'top-center'
+      })
       const result = await response.json()
       console.log(result)
     } catch (error) {
       console.log(error)
+      toast.error(error)
     }
   }
 
