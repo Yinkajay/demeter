@@ -1,6 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react"
+import { uploadToCloudinary } from "../lib/cloudinary"
 
 const CreateRecipe = () => {
   const { control, register, handleSubmit } = useForm({
@@ -86,19 +87,45 @@ const CreateRecipe = () => {
 
   const addRecipeHandler = async (data) => {
     console.log(data)
+    const uploadedImageUrls = [];
 
-    const imageUploadPromises  = 
+    for (const file of images) {
+      const url = await uploadToCloudinary(file);
+      uploadedImageUrls.push(url);
+    }
 
+    console.log(uploadedImageUrls)
+
+    const ings = []
+
+    for (const ing of ingredients) {
+      ings.push({ name: ing })
+    }
+
+    console.log(ings)
     try {
       const recipeData = {
         title: data.title,
         description: data.description,
         cook_time: data.cookTime,
-        instructions: data.steps
+        instructions: data.steps,
+        image_urls: uploadedImageUrls,
+        ingredients: ings
       }
 
-    } catch (error) {
+      const response = await fetch('http://localhost:5000/api/recipes/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(recipeData)
+      })
 
+      const result = await response.json()
+      console.log(result)
+    } catch (error) {
+      console.log(error)
     }
   }
 

@@ -147,7 +147,7 @@ const Profile = () => {
                     <input type="file" id="upload" accept="image/*" onChange={handleImageChange} />
                 </div>
 
-                {/* <h3>Username - {userData?.usernam e}</h3> */}
+                {/* <h3>Username - {userData?.username}</h3> */}
                 <EditableField label='Username' value={userData.username} onSave={(data) => handleProfileFieldUpdate({ username: data })} />
                 <EditableField label='Bio' value={userData.bio} onSave={(data) => handleProfileFieldUpdate({ bio: data })} />
                 <div className="">
