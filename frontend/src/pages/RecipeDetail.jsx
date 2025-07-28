@@ -24,11 +24,18 @@ const RecipeDetail = () => {
   }
 
   return (
-    <div>
+    <div className='px-4'>
       <div className="text-center">
         <h1 className='mt-3 text-3xl font-bold font-quintessential'>{recipe.title}</h1>
         <p className='my-2'>{recipe.description}</p>
       </div>
+      <section className='max-w-screen'>
+        <div className="flex justify-center items-center">
+          {recipe.image_urls?.map((url) => (
+            <img key={url} src={url} alt="recipe pic" className='w-60 rounded object-cover' />
+          ))}
+        </div>
+      </section>
       <section className="shadow p-4">
         <p className='' >Time to cook - <span>{recipe.cook_time} minutes <BsClock className='inline translate-y-[-2px]' /> </span></p>
         <div className='my-2'>

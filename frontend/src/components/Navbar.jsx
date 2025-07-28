@@ -1,31 +1,40 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import useAuthStore from '../store/useAuthStore'
 import logo from '../assets/ounje.svg'
 
 const Navbar = () => {
-    const { isAuthenticated } = useAuthStore()
-    console.log(isAuthenticated)
+    const { isAuthenticated, logout } = useAuthStore()
+    const location = useLocation()
+    const navigate= useNavigate()
+
+    const isHome = location.pathname === '/';
+    console.log(location)
+
+    const handleLogout = ()=>{
+        logout()
+        navigate('/')
+    }
     return (
-        <nav className='bg-white w-1/2 max-w-[550px] rounded-full my-3 px-9 mx-auto shadow text-[#222] h-16 flex justify-between items-center gap-5'>
+        <nav className={`${isHome ? 'fixed z-500 left-1/2 -translate-x-1/2' : ''}  bg-white w-1/2 max-w-[550px] rounded-full my-5 px-9 mx-auto shadow-md  text-[#222] h-16 flex justify-between items-center gap-5`}>
             <NavLink to='/'>
                 <img src={logo} alt="app logo" />
             </NavLink>
             <div className="flex gap-4">
-                <NavLink to='/'>Home</NavLink>
-                <NavLink to='/recipes'>Recipes</NavLink>
+                <NavLink to='/' className={({ isActive }) => isActive ? 'font-semibold' : ''}>Home</NavLink>
+                <NavLink to='/recipes' className={({ isActive }) => isActive ? 'font-semibold' : ''}>Recipes</NavLink>
                 {isAuthenticated
-                    ? <NavLink to='/profile'>Profile</NavLink>
+                    ? <NavLink to='/profile' className={({ isActive }) => isActive ? 'font-semibold' : ''}>Profile</NavLink>
                     : ''
                 }
             </div>
             {isAuthenticated
                 ? (
-                    <button className='bg-[#222] px-3 py-2 cursor-pointer hover:opacity-75 rounded-full text-white'>
+                    <button onClick={handleLogout} className='bg-[#222] px-3 py-2 cursor-pointer hover:opacity-75 rounded-full text-white'>
                         Logout
                     </button>
                 )
-                : <NavLink to='/auth'>Sign In</NavLink>
+                : <NavLink to='/auth' className='bg-[#222] px-3 py-2 cursor-pointer hover:opacity-75 rounded-full text-white'>Sign In</NavLink>
             }
         </nav>
     )

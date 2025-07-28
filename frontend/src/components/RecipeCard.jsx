@@ -44,8 +44,9 @@ const RecipeCard = ({ recipe }) => {
 
   return (
     <Link to={`/recipe/${recipe.id}`} className='relative h-72 w-56 rounded-md bg-white flex flex-col shadow hover:scale-101'>
-      <button onClick={handleSaveToggle} className="absolute top-2 right-2">{savedRecipeIds.includes(recipe.id) ? <IoIosHeart size={20} /> : <IoIosHeartEmpty size={20} />}</button>
+      <button onClick={handleSaveToggle} className="absolute top-2 right-2">{savedRecipeIds.includes(recipe.id) ? <IoIosHeart size={20} color="red" /> : <IoIosHeartEmpty size={20} color="" />}</button>
       <div className="flex h-full items-center justify-center">
+        <img src={recipe.image_urls[0]} alt="" />
         <p>🥘</p>
       </div>
       <div className="mt-auto w-full p-3 rounded-md border   border-gray-200">
