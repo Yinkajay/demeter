@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 const SignupForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-
+  const navigate = useNavigate()
   const submitHandler = async (data) => {
     console.log(data)
     try {
@@ -26,10 +27,11 @@ const SignupForm = () => {
 
       const token = response.token
       // const userInfo = response.user
-      
+
       localStorage.setItem('token', token)
       // localStorage.setItem("user", user)
       console.log("Signup success:", response)
+      navigate('/profile')
     } catch (error) {
       console.log('Signup failed', error)
     }
